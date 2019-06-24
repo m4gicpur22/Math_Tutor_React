@@ -1,0 +1,36 @@
+{
+  "name": "math_tutor_react",
+  "version": "1.0.0",
+  "description": "Math Tutor application that provides end to end communication with students and tutors",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client-install": "npm install --prefix client",
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m4gicpur22/Math_Tutor_React.git"
+  },
+  "author": "Affner Lefevre",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/m4gicpur22/Math_Tutor_React/issues"
+  },
+  "homepage": "https://github.com/m4gicpur22/Math_Tutor_React#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "concurrently": "^4.1.0",
+    "config": "^3.1.0",
+    "express": "^4.17.1",
+    "mongodb": "^3.2.7",
+    "mongoose": "^5.6.0",
+    "nodemon": "^1.19.1",
+    "path": "^0.12.7",
+    "react": "^16.8.6",
+    "react-scripts": "^3.0.1"
+  }
+}
