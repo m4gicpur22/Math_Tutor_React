@@ -18,7 +18,6 @@ import { connect } from 'react-redux';
 
 class Register extends Component {
 
-        //dafuq is modal??
         state = {
             modal: false,
             name: '',
@@ -31,7 +30,7 @@ class Register extends Component {
     static propTypes = {
         isAuthenticated: PropTypes.bool,
         error: PropTypes.object.isRequired,
-        login: PropTypes.func.isRequired,
+        register: PropTypes.func.isRequired,
         clearErrors: PropTypes.func.isRequired
     }
 
@@ -40,7 +39,7 @@ class Register extends Component {
         const { error, isAuthenticated } = this.props;
 
         if(error !== prevProps.error){
-            if(error.id == 'REGISTER_FAIL')
+            if(error.id === 'REGISTER_FAIL')
                 this.setState({ msg: error.msg.msg })
             else
                 this.setState({ msg: null })
@@ -56,10 +55,11 @@ class Register extends Component {
 
     //toggle functionality for login button
     toggle = () => {
+        //clears errors on update/toggle
         this.props.clearErrors();
-        this.setState(prevstate => ({
-            modal: !prevstate.modal
-        }));
+        this.setState({
+            modal: !this.state.modal
+        });
     }
 
     onSubmit = e => {
@@ -89,9 +89,13 @@ class Register extends Component {
                     Register
                 </NavLink>
 
-                <Modal >
-                <ModalHeader>Register</ModalHeader>
+                <Modal 
+                    isOpen={this.state.modal}
+                    toggle={this.toggle}
+                >
+                <ModalHeader toggle={this.toggle} >Register</ModalHeader>
                 <ModalBody>
+                    { this.state.msg ? (<Alert color = 'danger'>{this.state.msg}</Alert>): null}
                 <Form onSubmit={this.onSubmit}>
                 <FormGroup>
                 <Label for="name">name</Label>
@@ -133,9 +137,10 @@ class Register extends Component {
                 <Button
                 color="dark"
                 size="sm"
-                onClick={this.toggle}
-                onSubmit={this.onSubmit}>
-                    Register
+                style = {{marginTop: '2rem'}}
+                block
+                >
+                Register
                 </Button>
                 </FormGroup>
                 </Form>

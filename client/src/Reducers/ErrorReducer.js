@@ -8,8 +8,6 @@ const initialState = {
 
 export default function(state = initialState, action){
     switch(action.type){
-        default:
-            return state
         case GET_ERRORS:
             return {
                 msg: action.payload.msg,
@@ -22,5 +20,7 @@ export default function(state = initialState, action){
                 status: null,
                 id: null
             };
+        default:
+            return state;
     }
 };

@@ -8,7 +8,7 @@ import {
  } from "reactstrap";
 
 class Logout extends Component {
-
+//no State set yet for logout, just logs out a user
     static propTypes = {
         logout: Proptypes.func.isRequired
     }
@@ -29,8 +29,5 @@ class Logout extends Component {
         )
     }
 }
-
-// const mapStateToProps = (state) => ({
-// })
 
 export default connect(null, { logout })(Logout);

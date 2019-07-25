@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-//use reactstrap library here
 import Login from '../Auth/Login';
 import Register from '../Auth/Register';
 import Logout from '../Auth/Logout';
@@ -25,7 +24,7 @@ class NavBar extends Component {
     }
 
     static propTypes = {
-        auth: PropTypes.object.isRequired
+        //auth: PropTypes.object.isRequired
     }
 
     toggle = () => {
@@ -36,12 +35,14 @@ class NavBar extends Component {
 
     render() {
 
+         const { user, isAuthenticated } = this.props.error;
+
         //authentication functions, when user is logged in
-        const authlinks = (
+        const authLinks = (
             <Fragment>
                 <NavItem>
-                    <span classname="navabr-text mr-3">
-                        <strong>{ user ? `Welcome! ${user.name}`: 'NULL' }</strong>
+                    <span className="navabr-text mr-3">
+                        { <strong>{ user ? `Welcome! ${user.name}`: 'NULL' }</strong> }
                     </span>
                 </NavItem>
                 <NavItem>
@@ -62,8 +63,6 @@ class NavBar extends Component {
             </Fragment>
         )
 
-        const { user, authenticated } = this.props.auth;
-
         return (
             <div>
                 <NavBar color="dark" expand="md" className="mb-5">
@@ -72,7 +71,7 @@ class NavBar extends Component {
                         <NavbarToggler onClick={this.toggle}/>
                         <Collapse isOpen={this.state.isOpen} navbar>
                             <Nav className="ml-auto" navbar>
-                                { isAuthenticated ? authlinks: guestlinks }
+                                { isAuthenticated ? authLinks: guestLinks  }
                             </Nav>
                         </Collapse>
                     </Container>
@@ -85,6 +84,6 @@ class NavBar extends Component {
 
 const mapStateToProps = state => ({
     auth: state.auth
-})
+});
 
 export default connect(mapStateToProps, null)(NavBar);

@@ -49,14 +49,14 @@ class Login extends Component {
             }
         }
 
-    }
+    };
 
     //toggle functionality for login button
     toggle = () => {
         this.props.clearErrors();
-        this.setState(prevstate => ({
-            modal: !prevstate.modal
-        }));
+        this.setState({
+            modal: !this.state.modal
+        });
     }
 
     onSubmit = e => {
@@ -84,8 +84,11 @@ class Login extends Component {
                     Login
                 </NavLink>
 
-                <Modal >
-                <ModalHeader>Login</ModalHeader>
+                <Modal 
+                    isOpen={this.state.modal}
+                    toggle={this.toggle}
+                >
+                <ModalHeader toggle={this.toggle}>Login</ModalHeader>
                 <ModalBody>
                 <Form onSubmit={this.onSubmit}>
                 <FormGroup>
@@ -110,9 +113,9 @@ class Login extends Component {
                 />
                 <Button
                 color="dark"
-                size="sm"
-                onClick={this.toggle}
-                onSubmit={this.onSubmit}>
+                style = {{marginTop: '2rem'}}
+                block
+                >
                     Login
                 </Button>
                 </FormGroup>
@@ -128,6 +131,6 @@ class Login extends Component {
 const mapStateToProps = ( state ) => ({
     isAuthenticated: state.auth.isAuthenticated,
     error: state.error
-})
+});
 
 export default connect(mapStateToProps, {login, clearErrors} )(Login);

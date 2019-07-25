@@ -10,18 +10,30 @@ import {
 } from '../Actions/Type';
 
 const initialState = {
+    //initliaze token for state
     token: localStorage.getItem('token'),
     isAuthenticated: null,
     isLoading: false,
     user: null
+};
+
+function isTokenNull(){
+
+    if(localStorage.getItem('token') === null){
+        console.log("Token is undefined, no value is passed!");
+    }
+    else {
+        console.log("Token is not empty!");
+    }
 }
-//**Confused about isLoading variable and USER_LOADING feature */
+
 export default function(state = initialState, action) {
     switch(action.type){
-        default:
-        //when registering, we want to pass in the token
+        default://when registering, we want to pass in the token
+            return state;
         case REGISTER_SUCCESS:
-            localStorage.setItem('token', action.payload.token)
+            localStorage.setItem('token', action.payload.token);
+            isTokenNull();
             return {
                 ...state,
                 ...action.payload,
@@ -37,9 +49,8 @@ export default function(state = initialState, action) {
                 user: null,
                 isAuthenticated: false,
                 isLoading: false
-            }
+            } //we can pass a flash message when we fail to login
         case LOGIN_SUCCESS:
-        //we can pass a flash message when we fail to login
         case LOGIN_FAIL:
         case AUTH_ERROR:
         case USER_LOADED:

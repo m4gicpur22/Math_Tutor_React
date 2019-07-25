@@ -16,7 +16,7 @@ import { returnErrors } from './ErrorAction';
 export const loadUser = () => (dispatch, getState) => {
     dispatch({ type: USER_LOADING });
 
-    axios.get('/Api/Auth/User', tokenConfig(getState))
+    axios.get('/Api/Auth/user', tokenConfig(getState))
     .then(res => dispatch({
         type: USER_LOADED,
         payload: res.data
@@ -26,11 +26,12 @@ export const loadUser = () => (dispatch, getState) => {
         dispatch({
             type: AUTH_ERROR
         });
-    })
+        returnErrmssg(err);
+    });
 };
 
 
-export const register = ({ name, email, username, password}) => {
+export const register = ({ name, email, username, password }) => dispatch => {
 
     const configure = {
         headers: {
@@ -38,22 +39,23 @@ export const register = ({ name, email, username, password}) => {
         }
     }
 
-    const body = JSON.stringify({name, email, username, password });
+    const body = JSON.stringify({ name, email, username, password });
 
     axios.post('/Api/Users', body, configure)
-    .then( res => dispatch({
+    .then(res => dispatch({
         type: REGISTER_SUCCESS,
         payload: res.data
     }))
     .catch( err => {
-        dispatch(returnErrors(err.response.data, err.response.status));
+        dispatch(returnErrors(err.response.data, err.response.status, 'REGISTER_FAIL'));
         dispatch({
             type: REGISTER_FAIL
         });
+        returnErrmssg(err);
     });
 };
 
-export const login = ({ username, password }) => {
+export const login = ({ username, password }) => dispatch => {
 
     const configure = {
         headers: {
@@ -73,8 +75,10 @@ export const login = ({ username, password }) => {
         dispatch({
             type: LOGIN_FAIL
         });
+        returnErrmssg(err);
     });
 };
+
 
 export const logout = () => {
     return {
@@ -90,7 +94,7 @@ export const tokenConfig = getState => {
 
     const config = {
         headers: {
-            "Content-type": "application/json"
+            'Content-type': 'application/json'
         }
     }
 
@@ -99,4 +103,8 @@ export const tokenConfig = getState => {
     }
 
     return config;
+}
+
+function returnErrmssg (Err) {
+    console.log("Error with State Dispatch!" + Err + " ");
 }
