@@ -34,7 +34,8 @@ router.post('/', (req, res) => {
                 res.json({
                     token,
                     user: {
-                        id: user.id
+                        id: user.id,
+                        username: user.username
                     }
                 });
             });
@@ -47,9 +48,9 @@ router.post('/', (req, res) => {
 router.get('/user', auth, (req, res) => {
 
     user.findById(req.user.id)
-    .select('-password')
-    .then( user => res.json(user))
-    .catch( console.log("Could not find user!"));
+        .select('-password')
+        .then( user => res.json(user))
+        .catch( console.log("Could not find user!"));
 
 });
 

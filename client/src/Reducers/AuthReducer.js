@@ -49,23 +49,23 @@ export default function(state = initialState, action) {
                 user: null,
                 isAuthenticated: false,
                 isLoading: false
-            } //we can pass a flash message when we fail to login
+            }; //we can pass a flash message when we fail to login
         case LOGIN_SUCCESS:
         case LOGIN_FAIL:
         case AUTH_ERROR:
+            console.log("Err in Auth!");
         case USER_LOADED:
             return {
                 ...state,
                 isAuthenticated: true,
                 isLoading: false,
                 user: action.payload
-            }
+            };
         case USER_LOADING:
             return {
                 ...state,
                 isLoading: true,
-            }
+            };
         case LOGOUT_SUCCESS:
-
     }
 }

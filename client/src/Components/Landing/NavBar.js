@@ -23,59 +23,29 @@ class NavBar extends Component {
         isOpen: false
     }
 
-    static propTypes = {
-        //auth: PropTypes.object.isRequired
-    }
+    // static PropTypes = {
+    //     auth.
+    // }
 
     toggle = () => {
         this.setState({
             isOpen: !this.state.isOpen
-        })
+        });
     };
+
 
     render() {
 
-         const { user, isAuthenticated } = this.props.error;
+        const { isAuthenticated, user } = this.props.auth;
 
-        //authentication functions, when user is logged in
-        const authLinks = (
-            <Fragment>
-                <NavItem>
-                    <span className="navabr-text mr-3">
-                        { <strong>{ user ? `Welcome! ${user.name}`: 'NULL' }</strong> }
-                    </span>
-                </NavItem>
-                <NavItem>
-                    <Logout/>
-                </NavItem>
-            </Fragment>
-        )
 
-        //authentication function, user not authenticated
-        const guestLinks = (
-            <Fragment>
-                <NavItem>
-                    <Register/>
-                </NavItem>
-                <NavItem>
-                    <Login/>
-                </NavItem>
-            </Fragment>
-        )
+
+
+
 
         return (
             <div>
-                <NavBar color="dark" expand="md" className="mb-5">
-                    <Container>
-                        <NavbarBrand href="#">Math Tutor App</NavbarBrand>
-                        <NavbarToggler onClick={this.toggle}/>
-                        <Collapse isOpen={this.state.isOpen} navbar>
-                            <Nav className="ml-auto" navbar>
-                                { isAuthenticated ? authLinks: guestLinks  }
-                            </Nav>
-                        </Collapse>
-                    </Container>
-             </NavBar>
+                <h1>Hello!</h1>
             </div>
         )
     }
