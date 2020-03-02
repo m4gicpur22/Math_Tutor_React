@@ -5,10 +5,25 @@ const User = require('../../Schemas/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const auth = require('../../Middleware/Auth');
+const { check, validationResult } = require('express-validator');
 
 //Registration user routes
-router.post('/', (req, res) => {
+router.post('/',[
+    check('name', 'Name is required!').not().isEmpty(),
+    check('email', 'Username is required!').isEmail(),
+    //check username
+    check('password', 'Password must be 6 characters or longer!').isLength({ min: 6})
+    ],
 
+    (req, res) => {
+
+    const errors = validationResult(req);
+
+    if(!errors.isEmpty){
+        return res.status(400),json({errors: errors.array()});
+    }
+
+    //gonna remove username as I'm just gonna make email the default way to sign in/register
     const { name, username, email, password} = req.body;
 
     if( !name | !username | !email | !password ){

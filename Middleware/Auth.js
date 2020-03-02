@@ -3,7 +3,7 @@ const config = require('config');
 
 function auth(req, res, next) {
     
-    //to get access of the token to use to indicat we've authed in our routes
+    //to get access of the token to use to indicate we've authed in our routes
     //Can access the token by reading in the header of the jwt
     const token = req.header('x-auth-token');
 

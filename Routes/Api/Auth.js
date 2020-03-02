@@ -5,9 +5,24 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const auth = require('../../Middleware/Auth');
+const { check, validationResult } = require('express-validator');
 
 //initlizaing post request for auth
-router.post('/', (req, res) => {
+router.post('/', 
+    //make checks for username and password
+    [
+    check('username', 'Username is required!').isEmail(),
+    check('passsword', 'Password must at minimum 6 characters!').isLength({min: 6})
+    //we can pass the above checks in flash messages**
+    ],
+
+    (req, res) => {
+    
+    const errors = validationResult(req);
+
+    if(!errors.isEmpty){
+            return res.status(400),json({errors: errors.array()});
+    }
 
     const { username , password } = req.body;
 
