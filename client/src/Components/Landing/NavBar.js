@@ -21,11 +21,11 @@ class NavBar extends Component {
 
     state = {
         isOpen: false
-    }
-
-    // static PropTypes = {
-    //     auth.
-    // }
+    };
+ 
+    static propTypes = {
+        auth: PropTypes.object.isRequired
+    };
 
     toggle = () => {
         this.setState({
@@ -33,19 +33,47 @@ class NavBar extends Component {
         });
     };
 
-
     render() {
 
         const { isAuthenticated, user } = this.props.auth;
 
-
-
-
-
+        const authLinks = (
+            <Fragment>
+              <NavItem>
+                <span className="navbar-text mr-3">
+                  <strong>{user ? `Welcome ${user.name}` : ""}</strong>
+                </span>
+              </NavItem>
+              <NavItem>
+                <Logout />
+              </NavItem>
+            </Fragment>
+          );
+            
+          const guestLinks = (
+            <Fragment>
+              <NavItem>
+                <Register />
+              </NavItem>
+              <NavItem>
+                <Login />
+              </NavItem>
+            </Fragment>
+          );
 
         return (
             <div>
-                <h1>Hello!</h1>
+            <Navbar color="dark" dark expand="sm" className="mb-5">
+                <Container>
+                    <NavbarBrand href="/">Math Tutor App</NavbarBrand>
+                    <NavbarToggler onClick={this.toggle} />
+                    <Collapse isOpen={this.state.isOpen} navbar>
+                    <Nav className="ml-auto" navbar>
+                        {!isAuthenticated ? authLinks : guestLinks}
+                    </Nav>
+                    </Collapse>
+                </Container>
+            </Navbar>
             </div>
         )
     }

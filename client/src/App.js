@@ -8,8 +8,9 @@ import { loadUser } from './Actions/AuthAction';
 import { 
   Container,
  } from "reactstrap";
- import Carousel from './Components/Landing/Carousel';
-//First key is to set up the Landing page which will contain the NavBar 
+ import Carousell from './Components/Landing/Carousel';
+//First key is to set up the Landing page which will contain the NavBar
+//this is our central homepage
 class App extends Component {
 
   componentDidMount() {
@@ -21,7 +22,7 @@ class App extends Component {
       <Provider store={store}>
       <div className="App" >
           <NavBar/>
-          <Carousel/>
+          {/* <Carousell/>  */}
       </div>
       </Provider>
     );

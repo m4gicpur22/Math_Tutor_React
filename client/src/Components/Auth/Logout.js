@@ -16,7 +16,6 @@ class Logout extends Component {
     render() {
         return (
             <div>
-
                 <Fragment>
                     <Button>
                         <NavLink onClick={this.props.logout} href="#">
